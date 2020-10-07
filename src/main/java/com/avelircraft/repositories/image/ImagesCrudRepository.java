@@ -1,0 +1,9 @@
+package com.avelircraft.repositories.image;
+
+import com.avelircraft.models.Image;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface ImagesCrudRepository extends CrudRepository<Image, Long> {
+}
