@@ -52,20 +52,29 @@
 								<a class="kategor">Ваш ник:</a><br/>
 								<a class="kategor">Ваш статус:</a><br/>
 								<a class="kategor">Ваш баланс:</a><br/>
-								<a class="kategor">Наиграно времени:</a>
+								<a class="kategor">Наиграно времени:</a><br/>
+								<a class="kategor">RPG Уровень:</a><br/>
+								<a class="kategor">Класс:</a>
 							</div>
 							<div class="rpl">
 								<a class="kategop">НИК</a><br/>
 								<a class="kategop">донат</a><br/>
 								<a class="kategop">монеты</a><br/>
-								<a class="kategop">время</a>
+								<a class="kategop">время</a><br/>
+								<a class="kategop">уровень</a><br/>
+								<a class="kategop">класс</a>
+							</div>
+							<div class="profim">
+								<img class="profsrc" width="100px" height="100px" src="img/icon/log.png">
+								<p><input class="zagrizb" type="file" accept="image/*"name="image"></p>	
+								<p><input class="subs" type="submit" value="Сохранить">
 							</div>
 						</div>
 							<br/>
 							<div class="addadm">
 								<a class="linkosob" href="#">Вступить в администрацию проекта</a>
 							</div><br/>
-							<div class="addadm" style="display: none;">
+							<div class="addadm" th:if="${panel_access}">
 								<a class="linkosob" href="adminpanel.html">Админ панель</a>
 							</div>
 					</div>

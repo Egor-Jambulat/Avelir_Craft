@@ -32,14 +32,14 @@ public class EntryController {
     @RequestMapping(path = "", method = RequestMethod.POST)
     public String logMe(@RequestParam("username") String username,
                         @RequestParam("password") String password,
-                        @RequestParam("remember_me") Optional<Object> re,
+                        @RequestParam(required = false) boolean remember_me,
                         HttpSession session) {
         Optional<User> user = usersDataService.findByNameAndPassword(username, password);
         if (user.isEmpty())
-            return "Зарегестрируйтесь на сервере";
+            return "error";
         //List<Role> roles = rolesDataService.findByUsername(user.get().getUsername());
         //List<Role> roles = user.get().getRoles();
-        session.setAttribute("user", user);
+        session.setAttribute("user", user.get());
         session.setAttribute("log_date", System.currentTimeMillis()); // По истечении суток обновлять объект user
         //session.setAttribute("role", roles);
 

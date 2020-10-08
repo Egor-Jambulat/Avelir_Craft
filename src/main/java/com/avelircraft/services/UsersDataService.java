@@ -32,7 +32,7 @@ public class UsersDataService {
         if (user.isEmpty())
             return user;
         if (!bCryptPasswordEncoder.matches(password, user.get().getPassword())){
-            Optional<User> notFound = null;
+            Optional<User> notFound = Optional.ofNullable(null);
             return notFound;
         }
         return user;

@@ -42,12 +42,11 @@ public class HomeController {
             newsDataService.incrementViews(news.get());
         model.addAttribute("news", news.get());
 
-
         User user = (User) session.getAttribute("user");
-        List<Role> roles = new ArrayList<>();
-        if (user != null)
-            roles.addAll(user.getRoles());
-        model.addAttribute("roles", roles);
+        boolean deleteAccess = user == null ? false : user.getRoles().stream()
+                .anyMatch(role -> role.getRole()
+                        .matches("owner|fakeowner|admin|moder"));
+        model.addAttribute("delete_access", deleteAccess);
         return "news";
     }
 
@@ -57,7 +56,12 @@ public class HomeController {
     }
 
     @RequestMapping(path = {"/lk.html", "/lk"})
-    public String lkPage(Model model) {
+    public String lkPage(Model model, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        boolean panelAccess = user == null ? false : user.getRoles().stream()
+                .anyMatch(role -> role.getRole()
+                .matches("owner|fakeowner|admin"));
+        model.addAttribute("panel_access", panelAccess);
         return "lk";
     }
 
@@ -68,7 +72,13 @@ public class HomeController {
     public String donatePage(Model model) { return "donate"; }
 
     @RequestMapping(path = {"/guid.html", "/guid"})
-    public String guidPage(Model model) { return "guid"; }
+    public String guidPage(Model model, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        boolean deleteAccess = user == null ? false : user.getRoles().stream()
+                .anyMatch(role -> role.getRole()
+                        .matches("owner|fakeowner|admin|moder|helper"));
+        model.addAttribute("delete_access", deleteAccess);
+        return "guid"; }
 
     @RequestMapping(path = {"/guidmenu.html", "/guidmenu"})
     public String guidmenuPage(Model model) { return "guidmenu"; }

@@ -7,6 +7,33 @@
 .marup{
 	disbplay: block;
 }
+.saveme input[type="checkbox"] {
+    display: none;
+}
+.saveme{display: inline-block;
+    margin: 5px;
+    cursor: pointer;
+}
+.savemea{color: lime;font-size: 20px;}
+#checkbox:checked + .savemebox::before {
+    content: "\2611";
+    color: lime;
+    animation: checkanimate 200ms;
+}
+.savemebox::before {
+    content: "\2612";
+    font-weight: normal;
+    font-style: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+	color: orangered;
+    margin-right: 5px;
+    width: 1em;
+    display: inline-block;
+    font-size: 1.6em;
+}
+.autor{color: orangered;background: #282828;border: 2px solid silver;border-radius: 5px;}
 .upmenu{	
 	height: 80px;
 	width: 103.6%;
@@ -215,7 +242,7 @@ body{
 .addadm{border: 1px solid silver;text-align: center;padding: 5px;font-family: Ubuntu;font-size: 20px;background: #202020;width: 360px;border-radius: 5px;}
 .kategop{color: orangered;font-family: Ubuntu;font-size: 15px;}
 .rpl{float: left;margin-left: 50px;}
-.ospan{float: left;}
+.ospan{float: left;height: 100%;}
 .textiz{color: orangered;content_magazinetext-decoration:none;}
 .textiz2{color: orangered;text-decoration:none;}
 .polereg{margin: 0 auto;text-align: center;}
@@ -243,10 +270,15 @@ body{
 	color: Silver;
 	font-size: 25px;
 }
+.subs{color: white;background: #282828;font-size: 20px;border: 2px solid silver;border-radius: 3px;}
+.subs:hover{color: orangered;background: #282828;font-size: 20px;border: 2px solid orangered;border-radius: 3px;}
+.subs:active{color: red;background: #282828;font-size: 20px;border: 2px solid orangered;border-radius: 3px;}
 #createnews{display: none;}
 #vidpriv{display: none;}
 #delprof{display: none;}
-.zixius{background: #202020;border-radius: 10px;height: 80px;width: 820px;padding-left: 10px;padding-right: 10px;padding-top: 10px;padding-bottom: 10px;}
+.profim{text-align: center;float: right;margin-top: -10px;}
+.profsrc{border-radius: 50px;}
+.zixius{background: #202020;border-radius: 10px;height: 180px;width: 820px;padding-left: 10px;padding-right: 10px;padding-top: 20px;padding-bottom: 20px;}
 .footer{
     height: 80px;
     background: #41874e;

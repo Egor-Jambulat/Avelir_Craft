@@ -59,7 +59,7 @@
 						</div>
 						<div class="bottom-content">
 						<br>
-						<img src="img\icon\date.png" style="width:15px;pointer-events: none;" alt="Дата публикации"><a class="dat-sie" th:text="${#dates.format(report.date,'dd.MM.yyy')}">11.11.1111</a> <img src="img\icon\eye.png" style="width:15px;pointer-events: none;" alt="Просмотров"><a class="dat-sie" th:text="*{views}">1111</a>
+						<img src="img\icon\date.png" style="width:15px;pointer-events: none;" alt="Дата публикации"><a class="dat-sie" th:text="${#dates.format(report.date,'dd.MM.yyy')}">11.11.1111</a> <img src="img\icon\eye.png" style="width:15px;pointer-events: none;" alt="Просмотров"><a class="dat-sie" th:text="*{views}">1111</a>	 
 						<a href="news.html" th:href="@{news.html(id=*{id})}" class="podrob">Подробнее</a>
 						</div>
 					</div>

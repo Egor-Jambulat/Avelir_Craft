@@ -60,6 +60,7 @@ public class News {
         this.header = header;
         this.description = description;
         this.message = message;
+        views = 0l;
     }
 
     public News(String header, String description, String message, Long img_id, Image image) {
@@ -68,6 +69,7 @@ public class News {
         this.message = message;
         this.img_id = img_id;
         this.image = image;
+        views = 0l;
     }
 
     public String getMessage() {
