@@ -10,7 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -43,7 +42,7 @@ public class HomeController {
         model.addAttribute("news", news.get());
 
         User user = (User) session.getAttribute("user");
-        boolean deleteAccess = user == null ? false : user.getRoles().stream()
+        boolean deleteAccess = user != null && user.getRoles().stream()
                 .anyMatch(role -> role.getRole()
                         .matches("owner|fakeowner|admin|moder"));
         model.addAttribute("delete_access", deleteAccess);
@@ -58,15 +57,27 @@ public class HomeController {
     @RequestMapping(path = {"/lk.html", "/lk"})
     public String lkPage(Model model, HttpSession session) {
         User user = (User) session.getAttribute("user");
-        boolean panelAccess = user == null ? false : user.getRoles().stream()
+        if (user == null)
+            return "redirect:/";
+        boolean panelAccess = user.getRoles().stream()
                 .anyMatch(role -> role.getRole()
-                .matches("owner|fakeowner|admin"));
+                        .matches("owner|fakeowner|admin"));
         model.addAttribute("panel_access", panelAccess);
+        model.addAttribute("user", user);
         return "lk";
     }
 
     @RequestMapping(path = {"/adminpanel.html", "/adminpanel"})
-    public String adminPage(Model model) { return "adminpanel"; }
+    public String adminPage(Model model, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        boolean pageAccess = user != null && user.getRoles().stream()
+                .anyMatch(role -> role.getRole()
+                        .matches("admin"));
+        //if (pageAccess)
+            return "adminpanel";
+        //else
+        //    return "error";
+    }
 
     @RequestMapping(path = {"/donate.html", "/donate"})
     public String donatePage(Model model) { return "donate"; }
@@ -74,7 +85,7 @@ public class HomeController {
     @RequestMapping(path = {"/guid.html", "/guid"})
     public String guidPage(Model model, HttpSession session) {
         User user = (User) session.getAttribute("user");
-        boolean deleteAccess = user == null ? false : user.getRoles().stream()
+        boolean deleteAccess = user != null && user.getRoles().stream()
                 .anyMatch(role -> role.getRole()
                         .matches("owner|fakeowner|admin|moder|helper"));
         model.addAttribute("delete_access", deleteAccess);

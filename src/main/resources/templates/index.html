@@ -50,7 +50,7 @@
 				</div>
 				<div class="block-content" th:each="report : ${news}">
 					<div class="netrog" th:object="${report}">
-					<img class="lognews" src="img\news\bg.jpg" th:attr="src=*{img_id}? @{\upload\image(id=*{img_id})} : @{img\news\bg.jpg}" style="pointer-events: none;width:450px; height:160px;" alt="Логотип Новости">
+					<img class="lognews" src="img\news\bg.jpg" th:attr="src=*{imgName}? @{\upload\image(id=*{imgName})} : @{img\news\bg.jpg}" style="pointer-events: none;width:450px; height:160px;" alt="Логотип Новости">
 					<a class="tagnews" th:text="*{header}">Тестовый заголовок </a><br>
 						<div class="texnws">
 							<a class="textnews" th:text="*{description}">

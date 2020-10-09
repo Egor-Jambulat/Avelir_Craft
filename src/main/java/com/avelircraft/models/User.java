@@ -28,6 +28,7 @@ public class User implements Serializable {
     private Short isLogged;
     private Short hasSession;
     private String totp;
+    private boolean profileicon;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Role> roles;
@@ -109,6 +110,10 @@ public class User implements Serializable {
         return totp;
     }
 
+    public boolean isProfileicon() { return profileicon; }
+
+    public void setProfileicon(boolean profileicon) { this.profileicon = profileicon; }
+
     @Override
     public String toString() {
         return "Users{" +
@@ -144,4 +149,5 @@ public class User implements Serializable {
     public List<Comment> getComments() { return comments; }
 
     public void setComments(List<Comment> comments) { this.comments = comments; }
+
 }

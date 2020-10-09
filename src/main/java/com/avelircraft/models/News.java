@@ -30,16 +30,13 @@ public class News {
     @Temporal(TemporalType.TIMESTAMP)
     private Date date;
 
-    @Column(name = "img_id")
-    private Long img_id;
-
-    @OneToOne(mappedBy = "news", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    private Image image;
+    @Column(name = "img_name")
+    private String imgName;
 
     @Column(name = "views")
     private Long views;
 
-    @OneToMany(mappedBy = "news", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "news", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<Comment> comments;
 
     public News incrementViews() {
@@ -51,8 +48,8 @@ public class News {
         header = "Пустой заголовок";
         message = "Пустая новость";
         description = "Пустое описание";
-        views = 0l;
         id = 0;
+        views = 0l;
         //date =  new Date();
     };
 
@@ -63,12 +60,11 @@ public class News {
         views = 0l;
     }
 
-    public News(String header, String description, String message, Long img_id, Image image) {
+    public News(String header, String description, String message, String imgName) {
         this.header = header;
         this.description = description;
         this.message = message;
-        this.img_id = img_id;
-        this.image = image;
+        this.imgName = imgName;
         views = 0l;
     }
 
@@ -104,17 +100,9 @@ public class News {
         this.description = description;
     }
 
-    public Long getImg_id() {
-        return img_id;
-    }
+    public String getImgName() { return imgName; }
 
-    public void setImg_id(Long img_id) {
-        this.img_id = img_id;
-    }
-
-    public Image getImage() { return image; }
-
-    public void setImage(Image image) { this.image = image; }
+    public void setImgName(String imgName) { this.imgName = imgName; }
 
     public Long getViews() {
         return views;

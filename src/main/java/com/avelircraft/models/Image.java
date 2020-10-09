@@ -1,36 +1,28 @@
 package com.avelircraft.models;
 
 import javax.persistence.*;
-import java.util.Arrays;
 
 @Entity
 @Table(name = "images")
 public class Image {
 
     @Id
-    private Long id;
+    @Column(name = "user_id")
+    private Integer userId;
     private String type;
     private byte[] img;
 
-    @OneToOne
-    @JoinColumn(name = "news_id")
-    private News news;
+    public Image(){}
 
-    Image(){}
-
-    public Image(Long id, String type, byte[] img) {
-        this.id = id;
+    public Image(Integer id, String type, byte[] img) {
+        this.userId = id;
         this.type = type;
         this.img = img;
     }
 
-    public Long getId() {
-        return id;
-    }
+    public Integer getUserId() { return userId; }
 
-    public void setId(Long name) {
-        this.id = id;
-    }
+    public void setUserId(Integer userId) { this.userId = userId; }
 
     public String getType() {
         return type;
@@ -48,14 +40,10 @@ public class Image {
         this.img = img;
     }
 
-    public News getNews() { return news; }
-
-    // public void setNews(News news) { this.news = news; }
-
     @Override
     public String toString() {
         return "Image{" +
-                "id=" + id +
+                "id=" + userId +
                 ", type='" + type + '\'' +
                 '}';
     }

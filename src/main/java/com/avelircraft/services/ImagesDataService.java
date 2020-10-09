@@ -15,7 +15,7 @@ public class ImagesDataService {
     @Autowired
     private ImagesCrudRepository imagesCrudRepository;
 
-    public Optional<Image> findById(Long id){
+    public Optional<Image> findByUserId(Integer id){
         return imagesCrudRepository.findById(id);
     }
 
@@ -23,7 +23,7 @@ public class ImagesDataService {
         return imagesCrudRepository.save(var);
     }
 
-    public void deleteById(Long id){
+    public void deleteByUserId(Integer id){
         imagesCrudRepository.deleteById(id);
     }
 

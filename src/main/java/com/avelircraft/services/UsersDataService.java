@@ -42,4 +42,8 @@ public class UsersDataService {
         return usersCrudRepository.findAll();
     }
 
+    public void addIcon(User user){
+        usersCrudRepository.addIcon(user.getId());
+        user.setProfileicon(true);
+    }
 }
