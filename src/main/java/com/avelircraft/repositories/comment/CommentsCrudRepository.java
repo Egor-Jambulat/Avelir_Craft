@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CommentsCrudRepository extends CrudRepository<Comment, Long> {
+
+
 }

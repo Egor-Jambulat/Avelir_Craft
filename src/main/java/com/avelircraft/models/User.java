@@ -1,5 +1,7 @@
 package com.avelircraft.models;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -30,7 +32,7 @@ public class User implements Serializable {
     private String totp;
     private boolean profileicon;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<Role> roles;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
@@ -139,6 +141,12 @@ public class User implements Serializable {
     }
 
     public List<Role> getRoles() {
+        if (roles != null) return roles;
+        else return getFreshDbRoles();
+    }
+
+    @Transactional
+    public List<Role> getFreshDbRoles() {
         return roles;
     }
 
@@ -146,6 +154,7 @@ public class User implements Serializable {
         this.roles = roles;
     }
 
+    @Transactional
     public List<Comment> getComments() { return comments; }
 
     public void setComments(List<Comment> comments) { this.comments = comments; }

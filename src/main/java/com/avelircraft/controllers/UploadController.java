@@ -1,8 +1,10 @@
 package com.avelircraft.controllers;
 
+import com.avelircraft.models.Comment;
 import com.avelircraft.models.Image;
 import com.avelircraft.models.News;
 import com.avelircraft.models.User;
+import com.avelircraft.services.CommentsDataService;
 import com.avelircraft.services.ImagesDataService;
 import com.avelircraft.services.NewsDataService;
 import com.avelircraft.services.UsersDataService;
@@ -15,6 +17,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 import org.thymeleaf.expression.Strings;
 
 import javax.servlet.http.HttpSession;
@@ -38,6 +42,9 @@ public class UploadController {
 
     @Autowired
     NewsDataService newsDataService;
+
+    @Autowired
+    CommentsDataService commentsDataService;
 
     public UploadController() {
         dir = new File("C:/Server_files");
@@ -141,7 +148,20 @@ public class UploadController {
     }
 
     @RequestMapping(path = "/news/comment", method = RequestMethod.POST)
-    public String commentNews(@RequestParam("news_id") String id, HttpSession session){
-        return "";
+    public RedirectView commentNews(@RequestParam("news_id") Integer nId,
+                              @RequestParam("message") String message,
+                              HttpSession session,
+                              RedirectAttributes attr) {
+        User user = (User) session.getAttribute("user");
+        if (user == null)
+            return new RedirectView("/error");
+        Optional<News> news = newsDataService.findById(nId);
+        if (news.isEmpty())
+            return new RedirectView("/error");
+        Comment comment = new Comment(user, news.get(), message);
+        if (commentsDataService.save(comment) == null)
+            return new RedirectView("/error");
+        attr.addAttribute("id", nId);
+        return new RedirectView("/news");
     }
 }

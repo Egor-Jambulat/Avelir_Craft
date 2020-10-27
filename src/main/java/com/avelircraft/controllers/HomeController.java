@@ -40,6 +40,7 @@ public class HomeController {
         else
             newsDataService.incrementViews(news.get());
         model.addAttribute("news", news.get());
+        model.addAttribute("comments", news.get().getComments());
 
         User user = (User) session.getAttribute("user");
         boolean deleteAccess = user != null && user.getRoles().stream()
@@ -73,10 +74,10 @@ public class HomeController {
         boolean pageAccess = user != null && user.getRoles().stream()
                 .anyMatch(role -> role.getRole()
                         .matches("admin"));
-        //if (pageAccess)
+        if (pageAccess)
             return "adminpanel";
-        //else
-        //    return "error";
+        else
+            return "error";
     }
 
     @RequestMapping(path = {"/donate.html", "/donate"})

@@ -1,6 +1,7 @@
 package com.avelircraft.models;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -17,7 +18,7 @@ public class Comment {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "news_id")
     private News news;
 
@@ -72,6 +73,7 @@ public class Comment {
                 '}';
     }
 
+    @Transactional
     public News getNews() {
         return news;
     }
