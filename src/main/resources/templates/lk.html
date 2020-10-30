@@ -48,7 +48,7 @@
                                                                      src="img\icon\minecraftrating.png"></a>
             </div>
             <br/>
-            <div class="hello">
+            <div class="hello" th:object="${user}">
                 <div class="hi">Личный Кабинет</div>
                 <br>
                 <div class="stats" style="display: block;">
@@ -65,15 +65,15 @@
                             <a class="kategor">Класс:</a>
                         </div>
                         <div class="rpl">
-                            <a class="kategop">НИК</a><br/>
-                            <a class="kategop">донат</a><br/>
+                            <a class="kategop" th:text="*{realname}">НИК</a><br/>
+                            <a class="kategop" th:text="*{roles}">донат</a><br/>
                             <a class="kategop">монеты</a><br/>
                             <a class="kategop">время</a><br/>
                             <a class="kategop">уровень</a><br/>
                             <a class="kategop">класс</a>
                         </div>
                         <div class="profim">
-                            <img class="profsrc" width="100px" height="100px" src="img/icon/log.png" th:attr="src=*{user.profileicon}? @{/upload/user/icon(id=*{user.id})} : @{img/icon/log.png}">
+                            <img class="profsrc" width="100px" height="100px" src="img/icon/log.png" th:attr="src=*{profileicon}? @{/upload/user/icon(id=*{id})} : @{img/icon/log.png}">
                             <form method="POST" action="/upload/user/icon" enctype="multipart/form-data">
                                 <p><input class="zagrizb" type="file" accept="image/*" name="image"></p>
                                 <p><input class="subs" type="submit" value="Сохранить"></p>
@@ -81,7 +81,7 @@
                         </div>
                     </div>
                     <br/>
-                    <div class="addadm">
+                    <div class="addadm" th:if="not ${panel_access}">
                         <a class="linkosob" href="#">Вступить в администрацию проекта</a>
                     </div>
                     <br/>

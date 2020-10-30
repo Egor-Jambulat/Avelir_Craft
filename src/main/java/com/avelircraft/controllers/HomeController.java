@@ -47,6 +47,7 @@ public class HomeController {
                 .anyMatch(role -> role.getRole()
                         .matches("owner|fakeowner|admin|moder"));
         model.addAttribute("delete_access", deleteAccess);
+        model.addAttribute("user", user);
         return "news";
     }
 
@@ -59,7 +60,7 @@ public class HomeController {
     public String lkPage(Model model, HttpSession session) {
         User user = (User) session.getAttribute("user");
         if (user == null)
-            return "redirect:/";
+            return "redirect:/login";
         boolean panelAccess = user.getRoles().stream()
                 .anyMatch(role -> role.getRole()
                         .matches("owner|fakeowner|admin"));

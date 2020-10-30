@@ -49,11 +49,7 @@ public class Role {
 
     @Override
     public String toString() {
-        return "Role{" +
-                //"username='" + username + '\'' +
-                ", uuid='" + uuid + '\'' +
-                ", role='" + role + '\'' +
-                '}';
+        return role;
     }
 
     public User getUser() {

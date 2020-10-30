@@ -32,7 +32,7 @@ public class User implements Serializable {
     private String totp;
     private boolean profileicon;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER) //LAZY
     private List<Role> roles;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
@@ -140,13 +140,14 @@ public class User implements Serializable {
                 '}';
     }
 
-    public List<Role> getRoles() {
-        if (roles != null) return roles;
-        else return getFreshDbRoles();
-    }
+//    @Transient
+//    public List<Role> getRoles() {
+//        if (roles != null) return roles;
+//        else return getFreshDbRoles();
+//    }
 
-    @Transactional
-    public List<Role> getFreshDbRoles() {
+//    @Transactional(readOnly = true)
+    public List<Role> getRoles() {
         return roles;
     }
 

@@ -43,6 +43,6 @@ public class EntryController {
         session.setAttribute("log_date", System.currentTimeMillis()); // По истечении суток обновлять объект user
         //session.setAttribute("role", roles);
 
-        return "redirect:/";
+        return "redirect:/lk";
     }
 }

@@ -113,7 +113,7 @@ public class News {
         return id;
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public List<Comment> getComments() {
         return comments;
     }

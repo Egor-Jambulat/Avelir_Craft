@@ -69,27 +69,23 @@
                     <button class="delnews">Удалить новость</button>
                 </div>
                 <p><a class="coms">Комментарии</a><Br></p>
-                <div class="wantkom" style="display: block;">
-                    <form>
-                        <input class="test" name="comment" placeholder="Ваш комментарий..."/>
+                <div class="wantkom" th:if="${user}" style="display: block;">
+                    <form method="POST" enctype="multipart/form-data"
+                          th:attr="action=@{/upload/news/comment(news_id=*{id})}">
+                        <input class="test" name="message" placeholder="Ваш комментарий..."/>
                         <p><input class="subs" type="submit" value="Комментировать">
                     </form>
                 </div>
                 <div class="koms">
-                    <!--div class="solcom">
-                        <img src="img/icon/log.png" class="imagesis">
-                        <a class="name">Ник</a><br>
-                        <a class="komment">текст комментария.</a>
-                    </div-->
-                    <div class="solcom">
+                    <div class="solcom" th:each="comment : ${comments}">
                         <button class="podrob2" href="javascript:void(0);" onclick="viewdiv('reddel');"><img
                                 src="img\icon\....png" style="pointer-events: none;width:10px;"></button>
-                        <img src="img/icon/log.png" class="imagesis">
-                        <a class="name">Ник 2</a><br>
-                        <a class="komment">текст комментария 2 который будет очень длиннчый,созданный специально, что бы
+                        <img src="img/icon/log.png" class="imagesis" th:attr="src=${comment.user.profileicon}? @{/upload/user/icon(id=${comment.user.id})} : @{img/icon/log.png}">
+                        <a class="name" th:text="${comment.user.username}">Ник 2</a><br>
+                        <a class="komment" th:text="${comment.message}">текст комментария 2 который будет очень длиннчый,созданный специально, что бы
                             проверить вот этот вот самый комментарий + всякие смещения и тд и тп.В общем как-то так
                             ^-^</a>
-                        <div class="delkom">
+                        <div class="delkom" th:if="${delete_access}">
                             <ul id="reddel">
                                 <li>
                                     <button class="redderlbut">редактировать</button>
