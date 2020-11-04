@@ -16,4 +16,8 @@ public class CommentsDataService {
     public Comment save(Comment var){
         return commentsCrudRepository.save(var);
     }
+
+    public void deleteById(Long id){
+        commentsCrudRepository.deleteById(id);
+    }
 }

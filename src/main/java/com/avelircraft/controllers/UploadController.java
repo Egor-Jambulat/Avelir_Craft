@@ -47,7 +47,7 @@ public class UploadController {
     CommentsDataService commentsDataService;
 
     public UploadController() {
-        dir = new File("C:/Server_files");
+        dir = new File("/Server_files");
         if (!dir.exists()) dir.mkdir();
     }
 
@@ -161,6 +161,35 @@ public class UploadController {
         Comment comment = new Comment(user, news.get(), message);
         if (commentsDataService.save(comment) == null)
             return new RedirectView("/error");
+        attr.addAttribute("id", nId);
+        return new RedirectView("/news");
+    }
+
+    @RequestMapping(path = "/news/delete", method = RequestMethod.POST)
+    public String deleteNews(@RequestParam("news_id") Integer nId,
+                                    HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        boolean deleteAccess = user != null && user.getRoles().stream()
+                .anyMatch(role -> role.getRole()
+                        .matches("owner|fakeowner|admin|moder"));
+        if (!deleteAccess)
+            return "error";
+            newsDataService.deleteById(nId);
+        return "redirect:/";
+    }
+
+    @RequestMapping(path = "/news/comment/delete", method = RequestMethod.POST)
+    public RedirectView deleteComment(@RequestParam("news_id") Integer nId,
+                                @RequestParam("comment_id") Long cId,
+                                HttpSession session,
+                                RedirectAttributes attr) {
+        User user = (User) session.getAttribute("user");
+        boolean deleteAccess = user != null && user.getRoles().stream()
+                .anyMatch(role -> role.getRole()
+                        .matches("owner|fakeowner|admin|moder"));
+        if (!deleteAccess)
+            return new RedirectView("/error");
+        commentsDataService.deleteById(cId);
         attr.addAttribute("id", nId);
         return new RedirectView("/news");
     }

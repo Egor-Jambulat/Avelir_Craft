@@ -36,6 +36,7 @@
 					VK.Widgets.Group("vk_groups", {mode: 4, width: "280", height: "400", color1: '1E2024', color2: 'FFFFFF', color3: 'FF4500'}, 191168008);
 
 
+
                 </script>
                 <hr width="80%" color="orangered" align="center" size="3px;">
                 <iframe src="https://discordapp.com/widget?id=594485809424367626&theme=dark" width="280" height="400"
@@ -66,7 +67,9 @@
                 <br/>
                 <br/>
                 <div class="admdelnews" th:if="${delete_access}">
-                    <button class="delnews">Удалить новость</button>
+                    <form method="POST" action="/" th:attr="action=@{upload/news/delete(news_id=*{id})}">
+                        <button class="delnews" type="submit">Удалить новость</button>
+                    </form>
                 </div>
                 <p><a class="coms">Комментарии</a><Br></p>
                 <div class="wantkom" th:if="${user}" style="display: block;">
@@ -80,9 +83,11 @@
                     <div class="solcom" th:each="comment : ${comments}">
                         <button class="podrob2" href="javascript:void(0);" onclick="viewdiv('reddel');"><img
                                 src="img\icon\....png" style="pointer-events: none;width:10px;"></button>
-                        <img src="img/icon/log.png" class="imagesis" th:attr="src=${comment.user.profileicon}? @{/upload/user/icon(id=${comment.user.id})} : @{img/icon/log.png}">
+                        <img src="img/icon/log.png" class="imagesis"
+                             th:attr="src=${comment.user.profileicon}? @{/upload/user/icon(id=${comment.user.id})} : @{img/icon/log.png}">
                         <a class="name" th:text="${comment.user.username}">Ник 2</a><br>
-                        <a class="komment" th:text="${comment.message}">текст комментария 2 который будет очень длиннчый,созданный специально, что бы
+                        <a class="komment" th:text="${comment.message}">текст комментария 2 который будет очень
+                            длиннчый,созданный специально, что бы
                             проверить вот этот вот самый комментарий + всякие смещения и тд и тп.В общем как-то так
                             ^-^</a>
                         <div class="delkom" th:if="${delete_access}">
@@ -91,7 +96,9 @@
                                     <button class="redderlbut">редактировать</button>
                                 </li>
                                 <li>
-                                    <button class="redderlbut">удалить</button>
+                                    <form method="POST" action="/" th:attr="action=@{upload/news/comment/delete(news_id=*{id}, comment_id=${comment.id})}">
+                                        <button class="redderlbut" type="submit">удалить</button>
+                                    </form>
                                 </li>
                             </ul>
                         </div>

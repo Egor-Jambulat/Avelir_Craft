@@ -41,6 +41,10 @@ public class NewsDataService {
         newsCrudRepository.deleteById(id);
     }
 
+    public void delete(News var){
+        newsCrudRepository.delete(var);
+    }
+
     public void deleteAll(List<News> vars){
         newsCrudRepository.deleteAll(vars);
     }
