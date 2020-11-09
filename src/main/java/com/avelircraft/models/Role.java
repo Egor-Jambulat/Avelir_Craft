@@ -23,6 +23,12 @@ public class Role {
     public Role() {
     }
 
+    public Role(String uuid, User user, String role) {
+        this.uuid = uuid;
+        this.user = user;
+        this.role = role;
+    }
+
 //    public String getUsername() {
 //        return username;
 //    }

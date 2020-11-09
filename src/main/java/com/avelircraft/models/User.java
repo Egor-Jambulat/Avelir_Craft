@@ -155,6 +155,10 @@ public class User implements Serializable {
         this.roles = roles;
     }
 
+    public void setRole(Role role) {
+        roles.add(role);
+    }
+
     @Transactional
     public List<Comment> getComments() { return comments; }
 

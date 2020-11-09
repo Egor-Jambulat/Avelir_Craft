@@ -69,7 +69,8 @@
 					<div class="createnews" style="display: block;">
 						<br/><button class="podrob2" style="width: 250px;" href="javascript:void(0);" onclick="viewdiv('vidpriv');">Выдача привилегии</button>
 						<div id="vidpriv">
-							<form>
+							<form method="POST" enctype="multipart/form-data"
+								  action="/upload/admin/privilege">
 								<a class="lograb">Выдать привилегию</a><br/><br/>
 								<a class="loged">Введите ник</a><br/>
 								<textarea class="tagenews" maxlength="28" name="name" cols="100" rows="10" placeholder="28 символов"></textarea>
@@ -97,7 +98,8 @@
 					<div class="createnews" style="display: block;">
 						<br/><button class="podrob2" style="width: 250px;" href="javascript:void(0);" onclick="viewdiv('delprof');">Выдача привилегии</button>
 						<div id="delprof">
-							<form>
+							<form method="POST" enctype="multipart/form-data"
+								  action="/upload/admin/delete_user">
 								<a class="lograb">Удалить пользователя</a><br/><br/>
 								<a class="loged">Введите ник</a><br/>
 								<textarea class="tagenews" maxlength="28" name="name" cols="100" rows="10" placeholder="28 символов"></textarea> 

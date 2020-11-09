@@ -46,4 +46,13 @@ public class UsersDataService {
         usersCrudRepository.addIcon(user.getId());
         user.setProfileicon(true);
     }
+
+    public void update(User user){
+        if (user.getId() != 0)
+            usersCrudRepository.save(user);
+    }
+
+    public void delete(User user){
+        usersCrudRepository.delete(user);
+    }
 }
