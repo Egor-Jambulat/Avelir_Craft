@@ -1,5 +1,5 @@
 create table news (
-	id integer primary key auto_increment,
+    id integer primary key auto_increment,
     header varchar(256) not null,
     description varchar(512) not null,
     message varchar(2048) not null,
@@ -9,13 +9,13 @@ create table news (
 ) engine InnoDB;
 
 create table images (
-	user_id MEDIUMINT(8) UNSIGNED primary key,
+    user_id MEDIUMINT(8) UNSIGNED primary key,
     type varchar(64) not null,
     img mediumblob not null
 );
 
 create table comments (
-	id integer primary key auto_increment,
+    id integer primary key auto_increment,
     message varchar(1024) not null,
     date timestamp not null,
     user_id mediumint unsigned not null,
@@ -62,3 +62,13 @@ CREATE TABLE `luckperms_players` (
 ALTER TABLE `luckperms_players`
   ADD PRIMARY KEY (`uuid`),
   ADD KEY `luckperms_players_username` (`username`);
+
+create table guide (
+  id integer primary key auto_increment,
+  link varchar(256) not null,
+  header varchar(256) not null,
+  description varchar(4096) not null,
+  tags varchar(256) not null,
+  date timestamp not null,
+  `views` BIGINT NOT NULL DEFAULT '0'
+) engine InnoDB;
