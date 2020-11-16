@@ -24,13 +24,14 @@ th{border-bottom: 2px dashed white;}
 .ticketlist{border-collapse: collapse;width: 878px;}
 .ticket{height: 20px;color: white;}
 .ticket:hover{background: #494949;}
+.delkom{disbplay: none;}
+.delkom:hover{disbplay: block;}
 .ticklog{color: orangered;font-size: 20px;text-align: center;font-family: Ubuntu;}
 .ticklist{border: 2px solid silver;background: #181818;text-align: center;}
 .redderlbut{color: white;background: #282828;border: white solid 1px;border-radius: 5px;}
 .podrob2{float: right;background: none;width: 25px;height: 15px;margin-right: 20px;border: white solid 0px;}
 .podrob2:actve{background: none;width: 25px;height: 15px;margin-right: 20px;border: white solid 0px;}
-#reddel{display: none;float: left;}
-.delkom{float: right;}
+.delkom{position: absolute;margin-top: -40px;margin-left: 670px;background: lime;width: 10px;}
 .delnews{background: #282828;color: white;font-size: 20px;border: white solid 2px;border-radius: 3px;}
 .delnews:hover{background: #282828;color: orangered;font-size: 20px;border: orangered solid 2px;border-radius: 3px;}
 .delnews:active{background: #282828;color: red;font-size: 20px;border: red solid 2px;border-radius: 3px;}
@@ -80,6 +81,32 @@ ul{
 	margin-top: 30px;
 	top: left;
 	margin: 0 auto;
+}
+.poster{
+    position:relative;
+	width:20px;
+	float: right;
+}
+.descr{
+    display:none;
+    margin-left:-120px;
+    padding:10px;
+    margin-top:-110px;
+    background:#191919;
+    height:100px;
+    -moz-box-shadow:0 5px 5px rgba(0,0,0,0.3);
+    -webkit-box-shadow:0 5px 5px rgba(0,0,0,0.3);
+    box-shadow:0 5px 5px rgba(0,0,0,0.3);
+}
+.poster:hover .descr{
+    display:block;
+    position:absolute;
+	border: 2px solid white;
+	border-radius: 7px;
+    top:120px;
+    z-index:9999;
+    width:110px;
+	height:100%;
 }
 .rightblock{
 	height: 100%;

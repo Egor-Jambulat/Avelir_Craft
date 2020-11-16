@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,6 +44,23 @@ public class EntryController {
         session.setAttribute("log_date", System.currentTimeMillis()); // По истечении суток обновлять объект user
         //session.setAttribute("role", roles);
 
+        return "redirect:/lk";
+    }
+
+    @RequestMapping(path = "/new", method = RequestMethod.POST)
+    public String regMe(@RequestParam("username") String username,
+                        @RequestParam("password") String password,
+                        HttpSession session) {
+        if (usersDataService.findByUsername(username.toLowerCase()).isPresent())
+            return "error";
+        User user = new User();
+        user.setRealname(username);
+        user.setUsername(username.toLowerCase());
+        user.setPassword(password);
+        user.setRole(new Role(user));
+        user = usersDataService.save(user).get();
+        session.setAttribute("user", user);
+        session.setAttribute("log_date", System.currentTimeMillis());
         return "redirect:/lk";
     }
 }

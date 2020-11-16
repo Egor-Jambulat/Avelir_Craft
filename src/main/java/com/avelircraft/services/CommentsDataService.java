@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Service
 @Transactional
 public class CommentsDataService {
@@ -19,5 +21,13 @@ public class CommentsDataService {
 
     public void deleteById(Long id){
         commentsCrudRepository.deleteById(id);
+    }
+
+    public void delete(Comment var){
+        commentsCrudRepository.delete(var);
+    }
+
+    public Optional<Comment> findById(Long id){
+        return commentsCrudRepository.findById(id);
     }
 }

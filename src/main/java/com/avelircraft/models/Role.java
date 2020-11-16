@@ -23,6 +23,12 @@ public class Role {
     public Role() {
     }
 
+    public Role(User user) {
+        this.user = user;
+        uuid = System.currentTimeMillis() + "default";
+        role = "default";
+    }
+
     public Role(String uuid, User user, String role) {
         this.uuid = uuid;
         this.user = user;

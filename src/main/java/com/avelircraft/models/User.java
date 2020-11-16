@@ -38,7 +38,7 @@ public class User implements Serializable {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<Comment> comments;
 
-    User(){};
+    public User(){};
 
     public int getId() {
         return id;
@@ -115,6 +115,18 @@ public class User implements Serializable {
     public boolean isProfileicon() { return profileicon; }
 
     public void setProfileicon(boolean profileicon) { this.profileicon = profileicon; }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setRealname(String realname) {
+        this.realname = realname;
+    }
 
     @Override
     public String toString() {

@@ -67,7 +67,7 @@ public class Comment {
     public String toString() {
         return "Comment{" +
                 "id=" + id +
-                ", user=" + user +
+                ", user=" + user.getRealname() +
                 ", date=" + date +
                 ", message='" + message + '\'' +
                 '}';

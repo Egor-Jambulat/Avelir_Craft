@@ -13,6 +13,8 @@ public interface CustomizedUsersCrudRepository extends CrudRepository<User, Inte
 
     Optional<User> findByRealname(String realname);
 
+    Optional<User> findByUsername(String username);
+
     @Modifying
     @Query("update User u set u.profileicon = true where u.id = ?1")
     void addIcon(Integer id);

@@ -93,7 +93,7 @@ public class UploadController {
     }
 
     @RequestMapping(path = "/user/icon", method = RequestMethod.GET)
-    @ResponseBody
+    //@ResponseBody
     public ResponseEntity<byte[]> getProfilePic(@RequestParam("id") String id) {
         Image img;
         try {
@@ -158,8 +158,10 @@ public class UploadController {
         if (news.isEmpty())
             return new RedirectView("/error");
         Comment comment = new Comment(user, news.get(), message);
+        System.out.println(comment);
         if (commentsDataService.save(comment) == null)
             return new RedirectView("/error");
+        //System.out.println(comment);
         attr.addAttribute("id", nId);
         return new RedirectView("/news");
     }
@@ -183,12 +185,15 @@ public class UploadController {
                                       HttpSession session,
                                       RedirectAttributes attr) {
         User user = (User) session.getAttribute("user");
-        boolean deleteAccess = user != null && user.getRoles().stream()
+        if (user == null)
+            return new RedirectView("/error");
+        Optional<Comment> com = commentsDataService.findById(cId);
+        boolean deleteAccess = com.isPresent() && user.getId() == com.get().getUser().getId() || user.getRoles().stream()
                 .anyMatch(role -> role.getRole()
                         .matches("owner|fakeowner|admin|moder"));
         if (!deleteAccess)
             return new RedirectView("/error");
-        commentsDataService.deleteById(cId);
+        commentsDataService.delete(com.get());
         attr.addAttribute("id", nId);
         return new RedirectView("/news");
     }
@@ -211,7 +216,7 @@ public class UploadController {
                         .matches("privilege"));
         if (has)
             return "error";
-        String uuid = username + " " + privilege;
+        String uuid = username + " " + privilege + " " + System.currentTimeMillis();
         Role role = new Role(uuid, grantUser.get(), privilege);
         grantUser.get().setRole(role);
         usersDataService.update(grantUser.get());
@@ -220,7 +225,7 @@ public class UploadController {
 
     @RequestMapping(path = "/admin/delete_user", method = RequestMethod.POST)
     public String deleteUser(@RequestParam("name") String username,
-                                 HttpSession session) {
+                             HttpSession session) {
         User user = (User) session.getAttribute("user");
         boolean access = user != null && user.getRoles().stream()
                 .anyMatch(role -> role.getRole()

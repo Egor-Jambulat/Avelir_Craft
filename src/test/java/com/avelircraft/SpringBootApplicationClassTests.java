@@ -34,9 +34,10 @@ public class SpringBootApplicationClassTests {
     private ImagesDataService imagesDataService;
 
 
-    //@Ignore
+    @Ignore
     @Test
     @Transactional
+    @Rollback
     public void testUsersDataService() {
         System.out.println("-------------------------------------------");
         System.out.println("Start 1");
@@ -67,7 +68,7 @@ public class SpringBootApplicationClassTests {
     @Ignore
     @Test
     @Transactional
-    //@Rollback
+    @Rollback
     @Commit
     public void testNewsDataService() {
         System.out.println("-------------------------------------------");
@@ -103,10 +104,10 @@ public class SpringBootApplicationClassTests {
         System.out.println("-------------------------------------------");
     }
 
-    //@Ignore
+    @Ignore
     @Test
     @Transactional
-    @Commit
+    @Rollback
     public void testImagesDataService() {
         imagesDataService.deleteAll();
     }

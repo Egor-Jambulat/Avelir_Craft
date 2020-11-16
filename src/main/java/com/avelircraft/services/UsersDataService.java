@@ -23,6 +23,10 @@ public class UsersDataService {
         return usersCrudRepository.findById(id);
     }
 
+    public Optional<User> findByUsername(String name){
+        return usersCrudRepository.findByUsername(name);
+    }
+
     public Optional<User> findByName(String name){
         return usersCrudRepository.findByRealname(name);
     }
@@ -50,6 +54,14 @@ public class UsersDataService {
     public void update(User user){
         if (user.getId() != 0)
             usersCrudRepository.save(user);
+    }
+
+    public Optional<User> save(User user){
+        if (user.getId() == 0) {
+            user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+            return Optional.of(usersCrudRepository.save(user));
+        }
+        return Optional.empty();
     }
 
     public void delete(User user){

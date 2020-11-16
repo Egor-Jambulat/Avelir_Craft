@@ -24,7 +24,7 @@ public class HomeController {
 
     @RequestMapping(path = {"/", "/index.html", "/index"})
     public String indexPage(Model model) {
-        List<News> news =  Stream.concat(newsDataService.findAll()
+        List<News> news = Stream.concat(newsDataService.findAll()
                 .stream(), Stream.generate(News::new))
                 .limit(10)
                 .collect(Collectors.toList());
@@ -34,20 +34,22 @@ public class HomeController {
 
     @RequestMapping(path = {"/news.html", "/news"})
     public String newsPage(@RequestParam Integer id, Model model, HttpSession session) {
+        boolean deleteAccess = false;
+        User user = null;
         Optional<News> news = newsDataService.findById(id);
-        if(news.isEmpty())
+        if (news.isEmpty())
             news = Optional.of(new News());
-        else
+        else {
             newsDataService.incrementViews(news.get());
+            user = (User) session.getAttribute("user");
+            deleteAccess = user != null && user.getRoles().stream()
+                    .anyMatch(role -> role.getRole()
+                            .matches("owner|fakeowner|admin|moder"));
+        }
+        model.addAttribute("user", user);
         model.addAttribute("news", news.get());
         model.addAttribute("comments", news.get().getComments());
-
-        User user = (User) session.getAttribute("user");
-        boolean deleteAccess = user != null && user.getRoles().stream()
-                .anyMatch(role -> role.getRole()
-                        .matches("owner|fakeowner|admin|moder"));
         model.addAttribute("delete_access", deleteAccess);
-        model.addAttribute("user", user);
         return "news";
     }
 
@@ -82,7 +84,9 @@ public class HomeController {
     }
 
     @RequestMapping(path = {"/donate.html", "/donate"})
-    public String donatePage(Model model) { return "donate"; }
+    public String donatePage(Model model) {
+        return "donate";
+    }
 
     @RequestMapping(path = {"/guid.html", "/guid"})
     public String guidPage(Model model, HttpSession session) {
@@ -91,20 +95,31 @@ public class HomeController {
                 .anyMatch(role -> role.getRole()
                         .matches("owner|fakeowner|admin|moder|helper"));
         model.addAttribute("delete_access", deleteAccess);
-        return "guid"; }
+        return "guid";
+    }
 
     @RequestMapping(path = {"/guidmenu.html", "/guidmenu"})
-    public String guidmenuPage(Model model) { return "guidmenu"; }
+    public String guidmenuPage(Model model) {
+        return "guidmenu";
+    }
 
     @RequestMapping(path = {"/nolog.html", "/nolog"})
-    public String nologPage(Model model) { return "nolog"; }
+    public String nologPage(Model model) {
+        return "nolog";
+    }
 
     @RequestMapping(path = {"/openticket.html", "/openticket"})
-    public String openticketPage(Model model) { return "openticket"; }
+    public String openticketPage(Model model) {
+        return "openticket";
+    }
 
     @RequestMapping(path = {"/polssogl.html", "/polssogl"})
-    public String polssoglPage(Model model) { return "polssogl"; }
+    public String polssoglPage(Model model) {
+        return "polssogl";
+    }
 
     @RequestMapping(path = {"/register.html", "/register"})
-    public String registerPage(Model model) { return "register"; }
+    public String registerPage(Model model) {
+        return "register";
+    }
 }
