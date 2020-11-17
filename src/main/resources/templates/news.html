@@ -67,14 +67,14 @@
                 <br/>
                 <br/>
                 <div class="admdelnews" th:if="${delete_access}">
-                    <form method="POST" action="/" th:attr="action=@{upload/news/delete(news_id=*{id})}">
+                    <form method="POST" action="/" th:attr="action=@{act/news/delete(news_id=*{id})}">
                         <button class="delnews" type="submit">Удалить новость</button>
                     </form>
                 </div>
                 <p><a class="coms" th:if="${comments}">Комментарии</a><Br></p>
                 <div class="wantkom" th:if="${user}" style="display: block;">
                     <form method="POST" enctype="multipart/form-data"
-                          th:attr="action=@{/upload/news/comment(news_id=*{id})}">
+                          th:attr="action=@{/act/news/comment(news_id=*{id})}">
                         <input class="test" name="message" placeholder="Ваш комментарий..."/>
                         <p><input class="subs" type="submit" value="Комментировать">
                     </form>
@@ -84,17 +84,17 @@
 						<div class="poster">
 						<img src="img\icon\monot.png" style="pointer-events: none;width:10px;">
 							<div class="descr" th:if="${user}">
-                                <form method="POST" th:if="not ${delete_access} and ${comment.user.id} != ${user.id}" action="/" th:attr="action=@{upload/news/comment/complain(news_id=*{id}, comment_id=${comment.id})}">
+                                <form method="POST" th:if="not ${delete_access} and ${comment.user.id} != ${user.id}" action="/" th:attr="action=@{act/news/comment/complain(news_id=*{id}, comment_id=${comment.id})}">
 								    <button class="redderlbut">Пожаловаться</button>
                                 </form>
-								<form method="POST" th:if="${delete_access} or ${comment.user.id} == ${user.id}" action="/" th:attr="action=@{upload/news/comment/delete(news_id=*{id}, comment_id=${comment.id})}">
+								<form method="POST" th:if="${delete_access} or ${comment.user.id} == ${user.id}" action="/" th:attr="action=@{act/news/comment/delete(news_id=*{id}, comment_id=${comment.id})}">
 									<button class="redderlbut" type="submit">Удалить</button>
 								</form>
 							</div>
 						</div>
                         <img src="img/icon/log.png" class="imagesis"
                              th:attr="src=${comment.user.profileicon}? @{/upload/user/icon(id=${comment.user.id})} : @{img/icon/log.png}">
-                        <a class="name" th:text="${comment.user.username}">Ник 2</a><br>
+                        <a class="name" th:text="${comment.user.realname}">Ник 2</a><br>
                         <div class="komment" th:text="${comment.message}">текст комментария 2 который будет очень
                             длиннчый,созданный специально, что бы
                             проверить вот этот вот самый комментарий + всякие смещения и тд и тп.В общем как-то так ^-^
