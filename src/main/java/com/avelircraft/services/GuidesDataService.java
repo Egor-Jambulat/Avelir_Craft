@@ -34,4 +34,8 @@ public class GuidesDataService {
         guidesCrudRepository.incrementGuideViewsById(var.getId());
         return var.incrementViews();
     }
+
+    public List<Guide> findByTags(String[] tags){
+        return guidesCrudRepository.findGuidesLikeTags(tags);
+    }
 }
