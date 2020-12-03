@@ -109,7 +109,7 @@ public class ActionController {
             return "error";
         boolean has = grantUser.get().getRoles().stream()
                 .anyMatch(role -> role.getRole()
-                        .matches("privilege"));
+                        .matches(privilege));
         if (has)
             return "error";
         String uuid = username + " " + privilege + " " + System.currentTimeMillis();
