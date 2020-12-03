@@ -51,16 +51,16 @@ public class EntryController {
     public String regMe(@RequestParam("username") String username,
                         @RequestParam("password") String password,
                         HttpSession session) {
-        if (usersDataService.findByUsername(username.toLowerCase()).isPresent())
-            return "error";
-        User user = new User();
-        user.setRealname(username);
-        user.setUsername(username.toLowerCase());
-        user.setPassword(password);
-        user.setRole(new Role(user));
-        user = usersDataService.save(user).get();
-        session.setAttribute("user", user);
-        session.setAttribute("log_date", System.currentTimeMillis());
+//        if (usersDataService.findByUsername(username.toLowerCase()).isPresent())
+//            return "error";
+//        User user = new User();
+//        user.setRealname(username);
+//        user.setUsername(username.toLowerCase());
+//        user.setPassword(password);
+//        user.setRole(new Role(user));
+//        user = usersDataService.save(user).get();
+//        session.setAttribute("user", user);
+//        session.setAttribute("log_date", System.currentTimeMillis());
         return "redirect:/lk";
     }
 }
