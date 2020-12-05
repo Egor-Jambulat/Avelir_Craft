@@ -15,5 +15,5 @@ public interface CustomizedGuidesCrudRepository extends CrudRepository<Guide, In
     @Query("update Guide g set g.views = g.views + 1 where g.id = ?1")
     void incrementGuideViewsById(Integer id);
 
-    List<Guide> findAllByOrderByDate();
+    List<Guide> findAllByOrderByDateDesc();
 }

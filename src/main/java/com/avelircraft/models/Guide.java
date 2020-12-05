@@ -39,14 +39,19 @@ public class Guide {
     }
 
     public Guide() {
+        this.link = "https://www.youtube.com/embed/HCGluweMz60";
+        this.header = "пусто";
+        this.desc = "пусто";
+        this.tags = "";
+        views = 0L;
     }
 
-    public Guide(String link, String header, String desc, String tags, Long views) {
+    public Guide(String link, String header, String desc, String tags) {
         this.link = link;
         this.header = header;
         this.desc = desc;
         this.tags = tags;
-        this.views = views;
+        views = 0L;
     }
 
     public Integer getId() {
@@ -85,8 +90,8 @@ public class Guide {
         this.tags = tags;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public Date getDate() {
+        return date;
     }
 
     public Long getViews() {

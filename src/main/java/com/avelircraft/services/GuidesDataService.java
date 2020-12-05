@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -22,9 +23,13 @@ public class GuidesDataService {
         guidesCrudRepository.deleteById(id);
     }
 
+    public Optional<Guide> findById(Integer id){
+        return guidesCrudRepository.findById(id);
+    }
+
     public List<Guide> findAll(){
         ArrayList<Guide> guides = new ArrayList<>();
-        guidesCrudRepository.findAllByOrderByDate()
+        guidesCrudRepository.findAllByOrderByDateDesc()
                 .iterator()
                 .forEachRemaining(guides::add);
         return guides;

@@ -4,10 +4,7 @@ import com.avelircraft.models.Comment;
 import com.avelircraft.models.News;
 import com.avelircraft.models.Role;
 import com.avelircraft.models.User;
-import com.avelircraft.services.CommentsDataService;
-import com.avelircraft.services.ImagesDataService;
-import com.avelircraft.services.NewsDataService;
-import com.avelircraft.services.UsersDataService;
+import com.avelircraft.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,6 +31,9 @@ public class ActionController {
 
     @Autowired
     CommentsDataService commentsDataService;
+
+    @Autowired
+    GuidesDataService guidesDataService;
 
     public ActionController() {
         dir = new File("/Server_files");
@@ -73,6 +73,19 @@ public class ActionController {
             return "error";
         newsDataService.deleteById(nId);
         return "redirect:/";
+    }
+
+    @RequestMapping(path = "/guide/delete", method = RequestMethod.POST)
+    public String deleteGuide(@RequestParam("guide_id") Integer gId,
+                             HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        boolean deleteAccess = user != null && user.getRoles().stream()
+                .anyMatch(role -> role.getRole()
+                        .matches("owner|fakeowner|admin|moder"));
+        if (!deleteAccess)
+            return "error";
+        guidesDataService.deleteById(gId);
+        return "redirect:/guidmenu";
     }
 
     @RequestMapping(path = "/news/comment/delete", method = RequestMethod.POST)

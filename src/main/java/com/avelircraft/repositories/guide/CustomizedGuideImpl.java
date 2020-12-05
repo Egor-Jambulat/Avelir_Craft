@@ -29,9 +29,8 @@ public class CustomizedGuideImpl implements CustomizedGuide<Guide> {
         for (String tag : tags){
             predicates.add(cb.like(guide.get("tags"), "% " + tag + " %"));
         }
-        Predicate finalPredicate = cb.or(predicates.toArray(new Predicate[0]));
-        cq.where(finalPredicate).orderBy(cb.desc(guide.get("date")));
+        Predicate finalPredicate = cb.and(predicates.toArray(new Predicate[0]));
+        cq.where(finalPredicate).orderBy(cb.desc(guide.get("date"))); // ????????? cb.asc
         return em.createQuery(cq).getResultList();
     }
 }
-

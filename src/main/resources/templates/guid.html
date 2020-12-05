@@ -40,20 +40,22 @@
 					<a href="http://minecraftrating.ru/server/avelircraft/" title="Голосуй за нас на MinecarftRating.ru"><img style="pointer-events: none;" src="img\icon\minecraftrating.png"></a>
 				</div>
 					<br/>
-				<div class="fullnews">
+				<div class="fullnews" th:object="${guid}">
 					<a class="link2" href="../home/index.html">Главная</a> <a class="link">»</a> <a href="#" class="link2">Помощь</a> <a class="link">» Название </a><br/><br/>
-					<iframe width="880" height="495" src="https://www.youtube-nocookie.com/embed/gtgO9y3LbiY" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>					
+					<iframe width="880" height="495" src="https://www.youtube-nocookie.com/embed/gtgO9y3LbiY" th:src="@{*{link}}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 					<br/><br/>
-					<a class="textnews">Тут будет что-то на подобии описания</a>
+					<a class="textnews" th:text="*{desc}">Тут будет что-то на подобии описания</a>
 					<br/>
 					<br/>
 					<div class="teglist">
 						<a style="color: gold;font-size: 20px;">Теги:</a><br/>
-						<a class="teggui">Постройки MoDDyChat Средневековье Дом</a>
+						<a class="teggui" th:text="*{tags}">Постройки MoDDyChat Средневековье Дом</a>
 					</div>
 					<div class="admdelnews" th:if="${delete_access}">
 					<br/><br/>
-					<button class="delnews">Удалить новость</button>
+						<form method="POST" action="/" th:attr="action=@{act/guide/delete(guide_id=*{id})}">
+							<button class="delnews" type="submit">Удалить гайд</button>
+						</form>
 					</div>
 				</div>
 			</div>

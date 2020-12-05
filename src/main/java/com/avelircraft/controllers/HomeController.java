@@ -1,8 +1,10 @@
 package com.avelircraft.controllers;
 
+import com.avelircraft.models.Guide;
 import com.avelircraft.models.News;
 import com.avelircraft.models.Role;
 import com.avelircraft.models.User;
+import com.avelircraft.services.GuidesDataService;
 import com.avelircraft.services.NewsDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +23,9 @@ public class HomeController {
 
     @Autowired
     NewsDataService newsDataService;
+
+    @Autowired
+    GuidesDataService guidesDataService;
 
     @RequestMapping(path = {"/", "/index.html", "/index"})
     public String indexPage(Model model) {
@@ -89,17 +94,33 @@ public class HomeController {
     }
 
     @RequestMapping(path = {"/guid.html", "/guid"})
-    public String guidPage(Model model, HttpSession session) {
-        User user = (User) session.getAttribute("user");
-        boolean deleteAccess = user != null && user.getRoles().stream()
-                .anyMatch(role -> role.getRole()
-                        .matches("owner|fakeowner|admin|moder|helper"));
+    public String guidPage(@RequestParam Integer id, Model model, HttpSession session) {
+        boolean deleteAccess = false;
+        User user = null;
+        Optional<Guide> guide = guidesDataService.findById(id);
+        if (guide.isEmpty())
+            guide = Optional.of(new Guide());
+        else {
+            guidesDataService.incrementViews(guide.get());
+            user = (User) session.getAttribute("user");
+            deleteAccess = user != null && user.getRoles().stream()
+                    .anyMatch(role -> role.getRole()
+                            .matches("owner|fakeowner|admin|moder|helper"));
+        }
+        //model.addAttribute("user", user);
+        model.addAttribute("guid", guide.get());
         model.addAttribute("delete_access", deleteAccess);
         return "guid";
     }
 
     @RequestMapping(path = {"/guidmenu.html", "/guidmenu"})
-    public String guidmenuPage(Model model) {
+    public String guidmenuPage(@RequestParam("tags") Optional<String> tags, Model model) {
+        List<Guide> guides;
+        if (tags.isEmpty())
+            guides = guidesDataService.findAll();
+        else
+            guides = guidesDataService.findByTags(tags.get().split(" "));
+        model.addAttribute("guides", guides);
         return "guidmenu";
     }
 

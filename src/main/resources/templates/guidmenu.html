@@ -43,37 +43,23 @@
 					<br/>
 				<div class="hello">
 					<div class="poisk">
-						<form>
-						<input type="text" placeholder="Поиск...">
+						<form method="GET" action="/guidmenu">
+						<input type="text" placeholder="Поиск..." name="tags">
 						<button> <img src="img\icon\search.png" width="16px" height="16px"/></button>
 						</form>
 					</div>
 				</div>
-				<div class="blockguid">
-					<div class="netrog">
-					<iframe class="lognews" width="450px" height="253px" src="https://www.youtube.com/embed/HCGluweMz60" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+				<div class="blockguid" th:each="guide : ${guides}">
+					<div class="netrog" th:object="${guide}">
+					<iframe class="lognews" width="450px" height="253px" src="https://www.youtube.com/embed/HCGluweMz60" th:src="@{*{link}}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 						<div class="texguid">
-							<a class="textnews">
-							Тестовое описание нового обновление,суть которого мы пока не знаем,но обязательно добавим ^-^
+							<a class="textnews" th:text="*{header}">
+							Тестовое описание нового обновление,суть которого мы пока не знаем,но обязательно добавим ^-^</a>
 						</div>
 						<div class="bottom-content">
 						<br>
-						<img src="img\icon\date.png" style="width:15px;pointer-events: none;" alt="Дата публикации"><a class="dat-sie">11.11.1111</a> <img src="img\icon\eye.png" style="width:15px;pointer-events: none;" alt="Просмотров"><a class="dat-sie">1111</a>	 
-						<a href="guid.html" class="podrob">Подробнее</a>
-						</div>
-					</div>
-				</div>
-				<div class="block-content">
-					<div class="netrog">
-					<iframe class="lognews" width="450px" height="253px" src="https://www.youtube-nocookie.com/embed/gtgO9y3LbiY" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-						<div class="texguid">
-							<a class="textnews">
-							Тестовое описание нового обновление,суть которого мы пока не знаем,но обязательно добавим ^-^
-						</div>
-						<div class="bottom-content">
-						<br>
-						<img src="img\icon\date.png" style="width:15px;pointer-events: none;" alt="Дата публикации"><a class="dat-sie">11.11.1111</a> <img src="img\icon\eye.png" style="width:15px;pointer-events: none;" alt="Просмотров"><a class="dat-sie">1111</a>	 
-						<a href="guid.html" class="podrob">Подробнее</a>
+						<img src="img\icon\date.png" style="width:15px;pointer-events: none;" alt="Дата публикации"><a class="dat-sie" th:text="${#dates.format(guide.date,'dd.MM.yyy')}">11.11.1111</a> <img src="img\icon\eye.png" style="width:15px;pointer-events: none;" alt="Просмотров"><a class="dat-sie" th:text="*{views}">1111</a>
+						<a href="guid.html" th:href="@{guid.html(id=*{id})}" class="podrob">Подробнее</a>
 						</div>
 					</div>
 				</div>

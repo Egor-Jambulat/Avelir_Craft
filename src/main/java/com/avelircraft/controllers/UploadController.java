@@ -1,10 +1,7 @@
 package com.avelircraft.controllers;
 
 import com.avelircraft.models.*;
-import com.avelircraft.services.CommentsDataService;
-import com.avelircraft.services.ImagesDataService;
-import com.avelircraft.services.NewsDataService;
-import com.avelircraft.services.UsersDataService;
+import com.avelircraft.services.*;
 import jdk.jfr.ContentType;
 import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +38,7 @@ public class UploadController {
     NewsDataService newsDataService;
 
     @Autowired
-    CommentsDataService commentsDataService;
+    GuidesDataService guidesDataService;
 
     public UploadController() {
         dir = new File("/Server_files");
@@ -113,7 +110,14 @@ public class UploadController {
     public String createNews(@RequestParam(defaultValue = "") String header,
                              @RequestParam("description") String description,
                              @RequestParam("message") String message,
-                             @RequestParam("image") MultipartFile image) {
+                             @RequestParam("image") MultipartFile image,
+                             HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        boolean access = user != null && user.getRoles().stream()
+                .anyMatch(role -> role.getRole()
+                        .matches("admin"));
+        if (!access)
+            return "error";
         if (!image.isEmpty()) {
             try {
                 // ---------------- Сохраняем изображение ----------------
@@ -142,5 +146,23 @@ public class UploadController {
             newsDataService.save(news);
             return "redirect:/";
         }
+    }
+
+    @RequestMapping(path = "/guide", method = RequestMethod.POST)
+    public String createGuide(@RequestParam(defaultValue = "") String header,
+                              @RequestParam("description") String description,
+                              @RequestParam("tags") Optional<String> tags,
+                              @RequestParam("link") String link,
+                              HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        boolean access = user != null && user.getRoles().stream()
+                .anyMatch(role -> role.getRole()
+                        .matches("admin"));
+        if (!access)
+            return "error";
+        Guide guide = new Guide(link, header, description, " " + tags.orElse("") + " ");
+        guide = guidesDataService.save(guide);
+
+        return "redirect:/guidmenu.html";
     }
 }
