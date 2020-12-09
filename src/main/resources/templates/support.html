@@ -43,6 +43,19 @@
 				<div class="fullnews">
 					<a class="newstag">Заявки в тех.поддержку</a><br/>
 					<a class="link2" href="index.html">Главная</a><a class="link">» Тех.Поддержка</a><br/><br/>
+					<br/><button class="creattick" style="width: 200px;" href="javascript:void(0);" onclick="viewdiv('createsupport');">Создать запрос</button>
+					<br/><br/>
+					<div id="createsupport" style="display: none;text-align: center;">
+						<form>
+							<a class="loged">Тема запроса</a><br/>
+							<textarea class="tageguid" maxlength="30" name="tagsupport" cols="100" rows="10" placeholder="30 символов"></textarea>
+							<br/><br/>
+							<a class="loged">Описание проблемы</a><br/>
+							<textarea class="koropguid" maxlength="180" name="descsupport" cols="100" rows="10" placeholder="180 символов"></textarea>
+							<br/><br/>
+							<input class="podrob3" type = "submit" value = "Создать"><br/><br/>
+						</form>
+					</div>
 					<div class="ticklog">Ваши заявки:</div><br/>
 					<div class="ticklist">
 						<table class="ticketlist">
